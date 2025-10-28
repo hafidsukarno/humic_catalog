@@ -8,6 +8,9 @@ use App\Models\Admin;
 
 class AuthController extends Controller
 {
+    /**
+     * LOGIN admin
+     */
     public function login(Request $request)
     {
         // Validasi input
@@ -40,5 +43,26 @@ class AuthController extends Controller
                 'email' => $admin->email,
             ]
         ]);
+    }
+
+    /**
+     * LOGOUT admin (hapus token)
+     */
+    public function logout(Request $request)
+    {
+        try {
+            // Hapus token Sanctum saat ini
+            $request->user()->currentAccessToken()->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout berhasil, token dihapus.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Logout gagal: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }
