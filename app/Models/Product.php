@@ -13,15 +13,15 @@ class Product extends Model
     protected $fillable = [
         'title',
         'slug',
-        'subtitle',
         'category',
         'description',
+        'user_manual',
         'thumbnail_path',
         'file_path',
+        'file_url',
         'admin_id',
     ];
 
-    // ✅ otomatis buat slug dari title saat create / update
     protected static function boot()
     {
         parent::boot();
@@ -39,13 +39,12 @@ class Product extends Model
         });
     }
 
-    // ✅ Relasi ke tabel admin
     public function admin()
     {
         return $this->belongsTo(Admin::class);
     }
 
-    // ✅ Akses URL thumbnail
+    // URL Thumbnail (benar)
     public function getThumbnailUrlAttribute()
     {
         return $this->thumbnail_path 
@@ -53,17 +52,14 @@ class Product extends Model
             : null;
     }
 
-    // ✅ Akses URL file utama
-    public function getFileUrlAttribute()
+    // ❌ file_url TIDAK boleh diubah → biarkan nilai asli dari database
+    // Jadi ACCESSOR INI DIHAPUS
+
+    // URL File Lokal (storage)
+    public function getFilePathUrlAttribute()
     {
         if (!$this->file_path) return null;
 
-        // Jika file_path adalah URL eksternal
-        if (Str::startsWith($this->file_path, ['http://', 'https://'])) {
-            return $this->file_path;
-        }
-
-        // Jika file_path adalah path lokal (storage)
         return asset('storage/' . $this->file_path);
     }
 }

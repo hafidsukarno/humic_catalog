@@ -8,9 +8,7 @@ use App\Models\Admin;
 
 class AuthController extends Controller
 {
-    /**
-     * LOGIN admin
-     */
+
     public function login(Request $request)
     {
         // Validasi input

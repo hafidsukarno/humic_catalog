@@ -11,17 +11,13 @@ return new class extends Migration {
             $table->id();
             $table->string('title', 255)->unique();
             $table->string('slug', 255)->unique(); 
-            $table->string('subtitle', 255)->nullable();
             $table->enum('category', ['Research Project', 'Internship Project']);
             $table->text('description')->nullable();
-
-            // kolom untuk menyimpan file utama (pdf, dokumen, dsb)
+            $table->string('user_manual', 500)->nullable();
             $table->string('file_path', 500)->nullable();
-
-            // kolom untuk menyimpan thumbnail / poster produk
+            $table->string('file_url', 500)->nullable();
             $table->string('thumbnail_path', 500)->nullable();
 
-            // relasi ke tabel admins
             $table->foreignId('admin_id')
                   ->constrained('admins')
                   ->onDelete('cascade');
