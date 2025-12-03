@@ -511,7 +511,6 @@ class ProductController extends Controller
             'data' => [
                 'thumbnail' => $product->thumbnail_path,
                 'title' => $product->title,
-                'subtitle' => $product->subtitle,
                 'description' => $product->description,
                 'user_manual' => $product->user_manual,
                 'file_path' => $product->file_path,
