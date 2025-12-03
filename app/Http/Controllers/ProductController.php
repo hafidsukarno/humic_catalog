@@ -51,7 +51,7 @@ class ProductController extends Controller
                 return response()->json(['success' => true, 'data' => $product]);
             }
 
-            $query = Product::select('title', 'subtitle', 'thumbnail_path');
+            $query = Product::select('title', 'thumbnail_path');
 
             if ($category) {
                 $query->where('category', $category);
@@ -74,7 +74,7 @@ class ProductController extends Controller
     {
         try {
             $product = Product::where('slug', $slug)
-                ->select('thumbnail_path', 'title', 'subtitle', 'category', 'description', 'file_path', 'user_manual')
+                ->select('thumbnail_path', 'title', 'category', 'description', 'file_path', 'user_manual', 'file_url')
                 ->first();
 
             if (!$product) {
@@ -89,7 +89,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::select('title', 'subtitle', 'thumbnail_path', 'category')->get();
+        $products = Product::select('title', 'thumbnail_path', 'category')->get();
 
         return response()->json(['success' => true, 'data' => $products]);
     }
