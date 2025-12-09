@@ -51,7 +51,7 @@ class ProductController extends Controller
                 return response()->json(['success' => true, 'data' => $product]);
             }
 
-            $query = Product::select('title', 'thumbnail_path');
+            $query = Product::select('title', 'thumbnail_path', 'description');
 
             if ($category) {
                 $query->where('category', $category);
@@ -229,7 +229,7 @@ class ProductController extends Controller
     public function updateInternship(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)
-            ->where('category', 'Intership Project')
+            ->where('category', 'Internship Project')
             ->first();
 
         if (!$product) {
